@@ -38,7 +38,7 @@ function fecthVideoPath(data) {
     let item_data = item.data;
     for (var key in item_data) {
       let element = item_data[key];
-      ids.push(element.id);
+      ids.push(element.movie_id);
     }
   }
 

@@ -79,7 +79,6 @@ function getHomePathByType(type, p) {
         };
       });
       
-      console.log(result);
       for(let index in result.data){
         let item = result.data[index];
         save_video_home(item);
