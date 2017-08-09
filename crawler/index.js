@@ -26,6 +26,7 @@ var threadCount = 0;
       let time = Date.now() - start;
       console.log("获取所有该类型的视频主页完成:" + time);
       // console.log(result);
+      //bug少了第一页的30条数据
       fecthVideoPath(result);
     }
   );

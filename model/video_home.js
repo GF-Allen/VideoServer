@@ -4,7 +4,9 @@ var movieSchema = new dbHelper.Schema(
   {
     title: String,
     home_path: String,
-    movie_id: String
+    movie_id: String,
+    type:String,
+    create_date:{type : Date, default: Date.now},
   },
   {
     collection: 'video_home'

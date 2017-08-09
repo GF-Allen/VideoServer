@@ -81,6 +81,7 @@ function getHomePathByType(type, p) {
       
       for(let index in result.data){
         let item = result.data[index];
+        item.type = type;
         save_video_home(item);
       }
       await page.close();
