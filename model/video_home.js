@@ -6,6 +6,7 @@ var movieSchema = new dbHelper.Schema(
     home_path: String,
     movie_id: String,
     type:String,
+    tag:String,//标记更新进度
     create_date:{type : Date, default: Date.now},
   },
   {

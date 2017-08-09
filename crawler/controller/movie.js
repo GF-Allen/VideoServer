@@ -1,6 +1,5 @@
 const video_home = require("../../model/video_home");
 async function save_video_home(videoHome) {
-  console.log(videoHome);
   video_home.findOne(
     {
       movie_id: videoHome.movie_id
@@ -23,4 +22,4 @@ async function save_video_home(videoHome) {
   );
 }
 
-module.exports = save_video_home;
+exports.save_video_home = save_video_home;

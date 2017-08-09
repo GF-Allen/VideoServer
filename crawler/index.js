@@ -1,12 +1,14 @@
 const asyncTool = require("async");
 const video = require("./video");
+const video_home = require("../model/video_home");
 
 const asyncCount = 8;
 var threadCount = 0;
 
 (async function() {
+  let typeId = "2";
   let start = Date.now();
-  let result = await video.getHomePathByType("4", "1");
+  let result = await video.getHomePathByType(typeId, "1");
   //TODO 遍历第一页，判断数据库中是否有未插入的数据，如果数据库中第一页的数据，则不跑后面的页，默认之后的数据已添加到库中
   let pagenow = parseInt(result.pagenow);
   let pagemax = parseInt(result.pagemax);
@@ -19,15 +21,26 @@ var threadCount = 0;
     pages,
     asyncCount,
     async function(page, callback) {
-      let data = await video.getHomePathByType("4", page);
+      let data = await video.getHomePathByType(typeId, page);
+      if (!data) {
+        console.log(page + "获取失败", 尝试重试);
+        data = await video.getHomePathByType(typeId, page);
+      }
       callback(null, data);
     },
     function(err, result) {
       let time = Date.now() - start;
       console.log("获取所有该类型的视频主页完成:" + time);
+      video_home.find({ type: typeId }, (err, res) => {
+        if (err) {
+          console.error(err);
+        } else {
+          fecthVideoPath(res);
+        }
+      });
       // console.log(result);
       //bug少了第一页的30条数据
-      fecthVideoPath(result);
+      // fecthVideoPath(result);
     }
   );
 })();
@@ -36,11 +49,7 @@ function fecthVideoPath(data) {
   let ids = [];
   for (var index in data) {
     let item = data[index];
-    let item_data = item.data;
-    for (var key in item_data) {
-      let element = item_data[key];
-      ids.push(element.movie_id);
-    }
+    ids.push(item.movie_id);
   }
 
   console.log(`一共` + ids.length + "记录");
