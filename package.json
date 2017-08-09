@@ -11,6 +11,7 @@
     "debug": "~2.6.3",
     "ejs": "~2.5.6",
     "express": "~4.15.2",
+    "mongoose": "^4.11.6",
     "morgan": "~1.8.1",
     "phantom": "^4.0.5",
     "serve-favicon": "~2.4.2",
