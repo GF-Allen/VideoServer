@@ -7,6 +7,7 @@ var threadCount = 0;
 (async function() {
   let start = Date.now();
   let result = await video.getHomePathByType("4", "1");
+  //TODO 遍历第一页，判断数据库中是否有未插入的数据，如果数据库中第一页的数据，则不跑后面的页，默认之后的数据已添加到库中
   let pagenow = parseInt(result.pagenow);
   let pagemax = parseInt(result.pagemax);
   let pages = [];

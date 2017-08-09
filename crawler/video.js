@@ -1,5 +1,6 @@
 const phantom = require("phantom");
 const S = require("string");
+const save_video_home = require('./controller/movie');
 
 /**
  * 获取类型的所有视频项
@@ -53,13 +54,13 @@ function getHomePathByType(type, p) {
       await instance.exit();
       reject(status);
     } else {
-      let result = page.evaluate(function() {
+      let result = await page.evaluate(function() {
         var data = new Array();
         $(".link-hover").each(function() {
           var href = $(this).attr("href");
-          var name = $(this).attr("title");
+          var title = $(this).attr("title");
           var id = href.split("-id-")[1].split(".html")[0];
-          data.push({ id: id, name: name, href: href });
+          data.push({ movie_id: id, title: title, home_path: href });
         });
 
         var nowAndMax = $("div.page.mb.clearfix")
@@ -78,7 +79,11 @@ function getHomePathByType(type, p) {
         };
       });
       
-      // console.log(result);
+      console.log(result);
+      for(let index in result.data){
+        let item = result.data[index];
+        save_video_home(item);
+      }
       await page.close();
       await instance.exit();
       resolve(result);
