@@ -42,69 +42,76 @@ exports.getHomePathByType = getHomePathByType;
 
 function getHomePathByType(type, p) {
   return new Promise(async function(resolve, reject) {
-    let url = makeTypeUrlForTypeAndPage(type, p);
-    let instance = await phantom.create();
-    let page = await instance.createPage();
-    page.setting.resourceTimeout = 5 * 1000;
-    let status = await page.open(url);
+    try {
+      let url = makeTypeUrlForTypeAndPage(type, p);
+      let instance = await phantom.create();
+      let page = await instance.createPage();
+      page.setting.resourceTimeout = 5 * 1000;
+      let status = await page.open(url);
 
-    if (status !== "success") {
-      console.log("getHomePathByType:访问失败:" + status);
-      await page.close();
-      await instance.exit();
-      reject(status);
-    } else {
-      let result = await page.evaluate(function() {
-        var data = new Array();
-        $(".link-hover").each(function() {
-          var href = $(this).attr("href");
-          var id = href.split("-id-")[1].split(".html")[0];
-          var tag = $(this).find("p.other").text();
-          var info = $(this).find(".lzbz p");
-          var title = info[0].innerText;
-          var actors = info[1].innerText;
-          var movie_type = info[2].innerText;
-          var yearAndArea = info[3].innerText.split("/");
-          var year = yearAndArea[0];
-          var area = yearAndArea[1];
-          var cover_img = $(".link-hover").last().find("img.lazy").attr("data-original");
-          data.push({
-            movie_id: id,
-            title: title,
-            home_path: href,
-            tag: tag,
-            actors: actors,
-            movie_type: movie_type,
-            year: year,
-            area: area,
-            cover_img: cover_img
+      if (status !== "success") {
+        console.log("getHomePathByType:访问失败:" + status);
+        await page.close();
+        await instance.exit();
+        reject(status);
+      } else {
+        let result = await page.evaluate(function() {
+          var data = new Array();
+          $(".link-hover").each(function() {
+            var href = $(this).attr("href");
+            var id = href.split("-id-")[1].split(".html")[0];
+            var tag = $(this).find("p.other").text();
+            var info = $(this).find(".lzbz p");
+            var title = info[0].innerText;
+            var actors = info[1].innerText;
+            var movie_type = info[2].innerText;
+            var yearAndArea = info[3].innerText.split("/");
+            var year = yearAndArea[0];
+            var area = yearAndArea[1];
+            var cover_img = $(".link-hover")
+              .last()
+              .find("img.lazy")
+              .attr("data-original");
+            data.push({
+              movie_id: id,
+              title: title,
+              home_path: href,
+              tag: tag,
+              actors: actors,
+              movie_type: movie_type,
+              year: year,
+              area: area,
+              cover_img: cover_img
+            });
           });
+
+          var nowAndMax = $("div.page.mb.clearfix")
+            .text()
+            .split("当前:")[1]
+            .split("页")[0]
+            .split("/");
+
+          var pagenow = nowAndMax[0];
+          var pagemax = nowAndMax[1];
+
+          return {
+            pagemax: pagemax,
+            pagenow: pagenow,
+            data: data
+          };
         });
 
-        var nowAndMax = $("div.page.mb.clearfix")
-          .text()
-          .split("当前:")[1]
-          .split("页")[0]
-          .split("/");
-
-        var pagenow = nowAndMax[0];
-        var pagemax = nowAndMax[1];
-
-        return {
-          pagemax: pagemax,
-          pagenow: pagenow,
-          data: data
-        };
-      });
-
-      for (let index in result.data) {
-        let item = result.data[index];
-        item.type = type;
-        movie.save_video_home(item);
+        for (let index in result.data) {
+          let item = result.data[index];
+          item.type = type;
+          movie.save_video_home(item);
+        }
+        await page.close();
+        await instance.exit();
+        resolve(result);
       }
-      await page.close();
-      await instance.exit();
-      resolve(result);
+    } catch (error) {
+      reject(error);
     }
   });
 }

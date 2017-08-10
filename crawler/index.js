@@ -21,11 +21,14 @@ var threadCount = 0;
     pages,
     asyncCount,
     async function(page, callback) {
-      let data = await video.getHomePathByType(typeId, page);
-      if (!data) {
-        console.log(page + "获取失败", 尝试重试);
+      let data ={};
+      try {
+        data = await video.getHomePathByType(typeId, page);
+      } catch (error) {
+        console.log(error);
         data = await video.getHomePathByType(typeId, page);
       }
+      // let data = await video.getHomePathByType(typeId, page);
       callback(null, data);
     },
     function(err, result) {
