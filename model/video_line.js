@@ -1,5 +1,6 @@
+
 /**
- * 视频的主页信息
+ * 每一个线路对应的集数
  */
 
 const dbHelper = require("../dbhelper/db");
@@ -15,8 +16,6 @@ var movieSchema = new dbHelper.Schema(
     movie_type: String,
     year: String,
     area: String,
-    synopsis:String,//剧情简介
-    cover_img:String,//封面图片
     create_date: { type: Date, default: Date.now }
   },
   {

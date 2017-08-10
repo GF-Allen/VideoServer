@@ -1,6 +1,6 @@
 const phantom = require("phantom");
 const S = require("string");
-const movie = require('./controller/movie');
+const movie = require("./controller/movie");
 
 /**
  * 获取类型的所有视频项
@@ -58,10 +58,27 @@ function getHomePathByType(type, p) {
         var data = new Array();
         $(".link-hover").each(function() {
           var href = $(this).attr("href");
-          var title = $(this).attr("title");
           var id = href.split("-id-")[1].split(".html")[0];
-          var tag = $(this).find('p.other').text();
-          data.push({ movie_id: id, title: title, home_path: href,tag:tag });
+          var tag = $(this).find("p.other").text();
+          var info = $(this).find(".lzbz p");
+          var title = info[0].innerText;
+          var actors = info[1].innerText;
+          var movie_type = info[2].innerText;
+          var yearAndArea = info[3].innerText.split("/");
+          var year = yearAndArea[0];
+          var area = yearAndArea[1];
+          var cover_img = $(".link-hover").last().find("img.lazy").attr("data-original");
+          data.push({
+            movie_id: id,
+            title: title,
+            home_path: href,
+            tag: tag,
+            actors: actors,
+            movie_type: movie_type,
+            year: year,
+            area: area,
+            cover_img: cover_img
+          });
         });
 
         var nowAndMax = $("div.page.mb.clearfix")
@@ -79,8 +96,8 @@ function getHomePathByType(type, p) {
           data: data
         };
       });
-      
-      for(let index in result.data){
+
+      for (let index in result.data) {
         let item = result.data[index];
         item.type = type;
         movie.save_video_home(item);
@@ -111,7 +128,7 @@ function getVideoPlayerPath(id) {
       reject(status);
     } else {
       let result = page.evaluate(function() {
-        var data = new Array();
+        var line_data = new Array();
         $(".playfrom li").each(function() {
           var lineId = $(this).attr("id"); //线路Id
           var lineName = $(this).text().trim();
@@ -124,12 +141,13 @@ function getVideoPlayerPath(id) {
               path: path
             });
           });
-          data.push({
+          line_data.push({
             lineName: lineName,
             lines: lines
           });
         });
-        return data;
+        var synopsis = $("div.ee .js").text(); //剧情简介
+        return { line_data: line_data, synopsis: synopsis };
       });
       // console.log(result);
       await page.close();
