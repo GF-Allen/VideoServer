@@ -5,24 +5,23 @@
 
 const dbHelper = require("../dbhelper/db");
 
-var movieSchema = new dbHelper.Schema(
+var lineSchema = new dbHelper.Schema(
   {
-    title: String,
-    home_path: String,
-    movie_id: String,
-    type: String,
-    tag: String, //标记更新进度
-    actors: String,
-    movie_type: String,
-    year: String,
-    area: String,
+    lineName: String,
+    videoId:String,
+    lines:[
+      {
+        name:String,
+        path:String
+      }
+    ],
     create_date: { type: Date, default: Date.now }
   },
   {
-    collection: "video_home"
+    collection: "video_line"
   }
 );
 
-const Movie = dbHelper.db.model("video_home", movieSchema);
+const VideoLine = dbHelper.db.model("video_line", lineSchema);
 
-module.exports = Movie;
+module.exports = VideoLine;

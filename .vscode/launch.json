@@ -9,7 +9,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\crawler\\index"
+            // "program": "${workspaceRoot}\\crawler\\index"
+            "program": "${workspaceRoot}\\bin\\www"
         }
     ]
 }

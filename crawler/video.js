@@ -1,6 +1,6 @@
 const phantom = require("phantom");
 const S = require("string");
-const movie = require("./controller/movie");
+const movieController = require("../controller/movieController");
 
 /**
  * 获取类型的所有视频项
@@ -68,10 +68,7 @@ function getHomePathByType(type, p) {
             var yearAndArea = info[3].innerText.split("/");
             var year = yearAndArea[0];
             var area = yearAndArea[1];
-            var cover_img = $(".link-hover")
-              .last()
-              .find("img.lazy")
-              .attr("data-original");
+            var cover_img = $(this).find("img.lazy").attr("data-original");
             data.push({
               movie_id: id,
               title: title,
@@ -104,7 +101,7 @@ function getHomePathByType(type, p) {
         for (let index in result.data) {
           let item = result.data[index];
           item.type = type;
-          movie.save_video_home(item);
+          movieController.saveVideoHome(item);
         }
         await page.close();
         await instance.exit();
