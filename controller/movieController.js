@@ -19,6 +19,16 @@ async function saveVideoHome(videoHome) {
           });
         } else {
           if (res.tag != videoHome.tag) {
+            video_home.update(
+              { _id: res._id },
+              {
+                tag: videoHome.tag,
+                update_line_tag: true
+              },
+              (err, res) => {
+                console.log(videoHome.movie_id, "更新成功");
+              }
+            );
           }
         }
       }
@@ -50,19 +60,24 @@ function findVideoByPage(typeId, page) {
 }
 
 function saveVideoLineByVideoId(vieoLine) {
-  return new Promise((resolve, reject) => {
-    video_line.findOne(
-      { lineName: vieoLine.lineName, videoId: videoId },
-      (err, res) => {
-        if(err){
-          console.log(err);
-        }else{
-          if(!res){
-            
-          }
-        }
-      });
+  video_home.findOne({ movie_id: vieoLine.videoId }, (err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      
+    }
   });
+  video_line.findOne(
+    { lineName: vieoLine.lineName, videoId: videoId },
+    (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (!res) {
+        }
+      }
+    }
+  );
 }
 
 exports.saveVideoHome = saveVideoHome;

@@ -7,14 +7,10 @@ const dbHelper = require("../dbhelper/db");
 
 var lineSchema = new dbHelper.Schema(
   {
-    lineName: String,
-    videoId:String,
-    lines:[
-      {
-        name:String,
-        path:String
-      }
-    ],
+    line_name: String,
+    movie_id:String,
+    video_name:String,
+    video_path:String,
     create_date: { type: Date, default: Date.now }
   },
   {

@@ -11,12 +11,13 @@ var movieSchema = new dbHelper.Schema(
     movie_id: String,
     type: String,
     tag: String, //标记更新进度
+    update_line_tag: { type: Boolean, default: false }, //是否有更新
     actors: String,
     movie_type: String,
     year: String,
     area: String,
-    synopsis:String,//剧情简介
-    cover_img:String,//封面图片
+    synopsis: String, //剧情简介
+    cover_img: String, //封面图片
     create_date: { type: Date, default: Date.now }
   },
   {
