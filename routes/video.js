@@ -14,13 +14,13 @@ router.get("/home/:type/:page", async function(req, res) {
     });
   }
   try {
-    let result = await videoController.findVideoByPage(typeId,page);
+    let result = await videoController.findVideoByPage(typeId, page);
     res.send({
       code: 10000,
       result: result
     });
   } catch (error) {
-      res.send({
+    res.send({
       msg: "服务器异常",
       code: "10001"
     });
@@ -31,10 +31,26 @@ router.get("/home/:type/:page", async function(req, res) {
 router.get("/lines/:id", async function(req, res) {
   let id = req.params.id;
   try {
-    let result = await video.getVideoPlayerPath(id);
-    res.send({
-      code: 10000,
-      result: result
+    videoController.findVideoLinesByVideoId(id, async (err, dataRes) => {
+      if (dataRes && dataRes.length != 0) {
+        res.send({
+          code: 10000,
+          result: dataRes
+        });
+        //判断是否需要更新
+        videoController.findVideoByVieoId(id, (err, res) => {
+          if (res.update_line_tag) {
+            console.log("需要更新");
+            video.getVideoPlayerPath(id);
+          }
+        });
+      } else {
+        let result = await video.getVideoPlayerPath(id);
+        res.send({
+          code: 10000,
+          result: result
+        });
+      }
     });
   } catch (err) {
     res.send({

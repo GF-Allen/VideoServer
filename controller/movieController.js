@@ -36,6 +36,10 @@ async function saveVideoHome(videoHome) {
   );
 }
 
+function findVideoByVieoId(movie_id,callback){
+  video_home.findOne({movie_id:movie_id},callback);
+}
+
 function findVideoByPage(typeId, page) {
   return new Promise((resolve, reject) => {
     var pagesize = 20;
@@ -64,21 +68,21 @@ function saveVideoLineByVideoId(vieoLine) {
     if (err) {
       console.error(err);
     } else {
-      
-    }
-  });
-  video_line.findOne(
-    { lineName: vieoLine.lineName, videoId: videoId },
-    (err, res) => {
-      if (err) {
-        console.log(err);
+      if (res && res.update_line_tag) {
+        video_line.remove({ movie_id: vieoLine.videoId });
       } else {
-        if (!res) {
-        }
+        video_line.create(vieoLine);
       }
     }
-  );
+  });
+}
+
+function findVideoLinesByVideoId(videoId,callback){
+  video_line.find({movie_id: videoId},callback);
 }
 
 exports.saveVideoHome = saveVideoHome;
+exports.findVideoByVieoId = findVideoByVieoId;
 exports.findVideoByPage = findVideoByPage;
+exports.saveVideoLineByVideoId = saveVideoLineByVideoId;
+exports.findVideoLinesByVideoId = findVideoLinesByVideoId;

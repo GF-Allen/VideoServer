@@ -1,6 +1,7 @@
 const phantom = require("phantom");
 const S = require("string");
 const movieController = require("../controller/movieController");
+const video_home = require("../model/video_home");
 
 /**
  * 获取类型的所有视频项
@@ -131,8 +132,13 @@ function getVideoPlayerPath(id) {
       await instance.exit();
       reject(status);
     } else {
-      let result = page.evaluate(function() {
+      let result = await page.evaluate(function() {
         var line_data = new Array();
+        var movie_id = $(".main .title a")
+          .last()
+          .attr("href")
+          .split("-id-")[1]
+          .split(".html")[0];
         $(".playfrom li").each(function() {
           var lineId = $(this).attr("id"); //线路Id
           var lineName = $(this).text().trim();
@@ -141,19 +147,26 @@ function getVideoPlayerPath(id) {
             var name = $(this).find("a").text();
             var path = $(this).find("a").attr("href");
             lines.push({
-              name: name,
-              path: path
+              video_name: name,
+              video_path: path
             });
           });
           line_data.push({
-            lineName: lineName,
+            line_name: lineName,
+            movie_id: movie_id,
             lines: lines
           });
         });
         var synopsis = $("div.ee .js").text(); //剧情简介
         return { line_data: line_data, synopsis: synopsis };
       });
-      // console.log(result);
+      for (var key in result.line_data) {
+        var data = result.line_data[key];
+        movieController.saveVideoLineByVideoId(data);
+      }
+      video_home.update({ movie_id: id }, { update_line_tag: false },(err,rea)=>{
+        
+      });
       await page.close();
       await instance.exit();
       resolve(result);
