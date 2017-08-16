@@ -68,6 +68,7 @@ router.get("/player/:videoid/:lineid", async function(req, res) {
       if (!data.lines[0].video_player) {
         //插入更新
         let result = await video.getPlayerUrl(data.lines[0].video_path);
+        videoController.updateLinePlayer(videoid,lineid,result);
         res.send({
           code: 10000,
           result: result

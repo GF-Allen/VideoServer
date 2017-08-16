@@ -83,7 +83,7 @@ function findVideoLinesByVideoId(videoId, callback) {
 
 function findLineById(videoId, linesId, callback) {
   video_line.findOne(
-    { "_id": videoId, "lines._id": linesId },
+    { _id: videoId, "lines._id": linesId },
     { "lines.$": 1 },
     (err, res) => {
       callback(err, res);
@@ -91,8 +91,17 @@ function findLineById(videoId, linesId, callback) {
   );
 }
 
-function updateLinePlayer(url){
-
+function updateLinePlayer(videoId, linesId, url) {
+  video_line.update(
+    { _id: videoId, "lines._id": linesId },
+    {
+      $set: {
+        "lines.$.video_player": url
+      }
+    },(err,res)=>{
+      console.log(err);
+    }
+  );
 }
 
 exports.saveVideoHome = saveVideoHome;
@@ -101,3 +110,4 @@ exports.findVideoByPage = findVideoByPage;
 exports.saveVideoLineByVideoId = saveVideoLineByVideoId;
 exports.findVideoLinesByVideoId = findVideoLinesByVideoId;
 exports.findLineById = findLineById;
+exports.updateLinePlayer = updateLinePlayer;

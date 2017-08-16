@@ -184,7 +184,6 @@ exports.getPlayerUrl = getPlayerUrl;
 function getPlayerUrl(url) {
   return new Promise(async function(resolve, reject) {
     url = "http://www.rejuwang.com" + url;
-    console.log(url);
     let instance = await phantom.create();
     let page = await instance.createPage();
     let status = await page.open(url);
@@ -199,10 +198,10 @@ function getPlayerUrl(url) {
         var data = $("#playleft iframe").attr("src");
         return data;
       });
-      console.log(result);
       if (!S(result).contains("http")) {
         result = "http://www.rejuwang.com" + result;
       }
+      
       await page.close();
       await instance.exit();
       resolve(result);
