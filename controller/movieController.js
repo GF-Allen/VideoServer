@@ -36,8 +36,8 @@ async function saveVideoHome(videoHome) {
   );
 }
 
-function findVideoByVieoId(movie_id,callback){
-  video_home.findOne({movie_id:movie_id},callback);
+function findVideoByVieoId(movie_id, callback) {
+  video_home.findOne({ movie_id: movie_id }, callback);
 }
 
 function findVideoByPage(typeId, page) {
@@ -77,8 +77,22 @@ function saveVideoLineByVideoId(vieoLine) {
   });
 }
 
-function findVideoLinesByVideoId(videoId,callback){
-  video_line.find({movie_id: videoId},callback);
+function findVideoLinesByVideoId(videoId, callback) {
+  video_line.find({ movie_id: videoId }, callback);
+}
+
+function findLineById(videoId, linesId, callback) {
+  video_line.findOne(
+    { "_id": videoId, "lines._id": linesId },
+    { "lines.$": 1 },
+    (err, res) => {
+      callback(err, res);
+    }
+  );
+}
+
+function updateLinePlayer(url){
+
 }
 
 exports.saveVideoHome = saveVideoHome;
@@ -86,3 +100,4 @@ exports.findVideoByVieoId = findVideoByVieoId;
 exports.findVideoByPage = findVideoByPage;
 exports.saveVideoLineByVideoId = saveVideoLineByVideoId;
 exports.findVideoLinesByVideoId = findVideoLinesByVideoId;
+exports.findLineById = findLineById;

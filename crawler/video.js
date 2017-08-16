@@ -164,9 +164,11 @@ function getVideoPlayerPath(id) {
         var data = result.line_data[key];
         movieController.saveVideoLineByVideoId(data);
       }
-      video_home.update({ movie_id: id }, { update_line_tag: false },(err,rea)=>{
-        
-      });
+      video_home.update(
+        { movie_id: id },
+        { update_line_tag: false },
+        (err, rea) => {}
+      );
       await page.close();
       await instance.exit();
       resolve(result);
@@ -182,9 +184,9 @@ exports.getPlayerUrl = getPlayerUrl;
 function getPlayerUrl(url) {
   return new Promise(async function(resolve, reject) {
     url = "http://www.rejuwang.com" + url;
+    console.log(url);
     let instance = await phantom.create();
     let page = await instance.createPage();
-    page.setting.resourceTimeout = 5 * 1000;
     let status = await page.open(url);
 
     if (status !== "success") {
@@ -193,14 +195,17 @@ function getPlayerUrl(url) {
       await instance.exit();
       reject(status);
     } else {
-      let result = page.evaluate(function() {
+      let result = await page.evaluate(function() {
         var data = $("#playleft iframe").attr("src");
-        return "http://www.rejuwang.com" + data;
+        return data;
       });
-      // console.log(result);
-      resolve(result);
+      console.log(result);
+      if (!S(result).contains("http")) {
+        result = "http://www.rejuwang.com" + result;
+      }
       await page.close();
       await instance.exit();
+      resolve(result);
     }
   });
 }

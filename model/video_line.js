@@ -11,7 +11,8 @@ var lineSchema = new dbHelper.Schema(
     lines: [
       {
         video_name: String,
-        video_path: String
+        video_path: String,
+        video_player: String
       }
     ],
     create_date: { type: Date, default: Date.now }

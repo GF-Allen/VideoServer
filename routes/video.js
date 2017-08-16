@@ -60,18 +60,30 @@ router.get("/lines/:id", async function(req, res) {
   }
 });
 
-router.get("/player", async function(req, res) {
-  let path = req.param("path");
+router.get("/player/:videoid/:lineid", async function(req, res) {
+  let videoid = req.params.videoid;
+  let lineid = req.params.lineid;
   try {
-    let result = await video.getPlayerUrl(path);
-    res.send({
-      code: 10000,
-      result: result
+    videoController.findLineById(videoid, lineid, async (err, data) => {
+      if (!data.lines[0].video_player) {
+        //插入更新
+        let result = await video.getPlayerUrl(data.lines[0].video_path);
+        res.send({
+          code: 10000,
+          result: result
+        });
+      } else {
+        res.send({
+          code: 10000,
+          result: data.lines[0].video_player
+        });
+      }
     });
   } catch (err) {
     res.send({
       msg: "服务器异常",
-      code: "10001"
+      code: "10001",
+      err: err
     });
   }
 });
