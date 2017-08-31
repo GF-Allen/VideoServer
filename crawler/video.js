@@ -61,7 +61,9 @@ function getHomePathByType(type, p) {
           $(".link-hover").each(function() {
             var href = $(this).attr("href");
             var id = href.split("-id-")[1].split(".html")[0];
-            var tag = $(this).find("p.other").text();
+            var tag = $(this)
+              .find("p.other")
+              .text();
             var info = $(this).find(".lzbz p");
             var title = info[0].innerText;
             var actors = info[1].innerText;
@@ -69,7 +71,9 @@ function getHomePathByType(type, p) {
             var yearAndArea = info[3].innerText.split("/");
             var year = yearAndArea[0];
             var area = yearAndArea[1];
-            var cover_img = $(this).find("img.lazy").attr("data-original");
+            var cover_img = $(this)
+              .find("img.lazy")
+              .attr("data-original");
             data.push({
               movie_id: id,
               title: title,
@@ -141,11 +145,17 @@ function getVideoPlayerPath(id) {
           .split(".html")[0];
         $(".playfrom li").each(function() {
           var lineId = $(this).attr("id"); //线路Id
-          var lineName = $(this).text().trim();
+          var lineName = $(this)
+            .text()
+            .trim();
           var lines = new Array();
           $("#s" + lineId + " li").each(function() {
-            var name = $(this).find("a").text();
-            var path = $(this).find("a").attr("href");
+            var name = $(this)
+              .find("a")
+              .text();
+            var path = $(this)
+              .find("a")
+              .attr("href");
             lines.push({
               video_name: name,
               video_path: path
@@ -166,6 +176,7 @@ function getVideoPlayerPath(id) {
       }
       video_home.update(
         { movie_id: id },
+        { synopsis: result.synopsis },
         { update_line_tag: false },
         (err, rea) => {}
       );
@@ -201,7 +212,7 @@ function getPlayerUrl(url) {
       if (!S(result).contains("http")) {
         result = "http://www.rejuwang.com" + result;
       }
-      
+
       await page.close();
       await instance.exit();
       resolve(result);

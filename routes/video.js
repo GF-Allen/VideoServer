@@ -35,7 +35,7 @@ router.get("/lines/:id", async function(req, res) {
       if (dataRes && dataRes.length != 0) {
         res.send({
           code: 10000,
-          result: dataRes
+          result: { line_data: dataRes }
         });
         //判断是否需要更新
         videoController.findVideoByVieoId(id, (err, res) => {
@@ -68,7 +68,7 @@ router.get("/player/:videoid/:lineid", async function(req, res) {
       if (!data.lines[0].video_player) {
         //插入更新
         let result = await video.getPlayerUrl(data.lines[0].video_path);
-        videoController.updateLinePlayer(videoid,lineid,result);
+        videoController.updateLinePlayer(videoid, lineid, result);
         res.send({
           code: 10000,
           result: result
@@ -88,5 +88,9 @@ router.get("/player/:videoid/:lineid", async function(req, res) {
     });
   }
 });
+
+router.get("/iframe",async function(req,res){
+  
+})
 
 module.exports = router;
