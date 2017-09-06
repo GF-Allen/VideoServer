@@ -54,7 +54,7 @@ function savePlayerUrl(addr) {
     if (err) {
       console.error(err);
     } else {
-      if (!res) {
+      if (res) {
         addrModel.update({ _id: res._id }, addr, (err, res) => {
           updateTag(addr.video_id, false);
         });
