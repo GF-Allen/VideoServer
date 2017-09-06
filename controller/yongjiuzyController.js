@@ -11,7 +11,7 @@ function saveVideoInfo(info, callback) {
           if (err) {
             console.error(err);
           } else {
-            console.log(info.video_id + "插入成功");
+            // console.log(info.video_id + "插入成功");
           }
           if (typeof callback == "function") {
             callback(true); //返回是否需要更新
@@ -19,11 +19,11 @@ function saveVideoInfo(info, callback) {
         });
       } else {
         //表中的更新时间和爬取的不一致，则需要更新
-        if (res.update_time != info.update_time) {
+        if (res.update_time != info.update_time || res.update_tag) {
           info.update_tag = true;
         }
         infoModel.update({ _id: res._id }, info, (err, res) => {
-          console.log(info.video_id, "更新成功");
+        //   console.log(info.video_id, "更新成功");
         });
         if (typeof callback == "function") {
           callback(info.update_tag); //返回是否需要更新
@@ -53,6 +53,7 @@ function savePlayerUrl(addr) {
   addrModel.findOne({ video_id: addr.video_id }, (err, res) => {
     if (err) {
       console.error(err);
+      updateTag(addr.video_id, true);
     } else {
       if (res) {
         addrModel.update({ _id: res._id }, addr, (err, res) => {

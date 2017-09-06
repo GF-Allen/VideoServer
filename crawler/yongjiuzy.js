@@ -134,8 +134,6 @@ function getVideoDes(id) {
 
       yongjiuzyController.saveVideoInfo(video_data);
       yongjiuzyController.savePlayerUrl(addr);
-      //   video_data.video_detail = video_detail;
-      console.log(video_data);
     }
   );
 }
