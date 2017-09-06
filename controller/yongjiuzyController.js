@@ -34,15 +34,19 @@ function saveVideoInfo(info, callback) {
 }
 
 function updateTag(id, tag) {
-    infoModel.findOne({ video_id: info.video_id }, (err, res)=>{
-        if(err){
-            console.error(err);
-        }else{
-            infoModel.update({ _id: res._id },{
-                update_tag = tag
-            }, (err, res)=>{})
-        }
-    })
+  infoModel.findOne({ video_id: info.video_id }, (err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      infoModel.update(
+        { _id: res._id },
+        {
+          update_tag: tag
+        },
+        (err, res) => {}
+      );
+    }
+  });
 }
 
 function savePlayerUrl(addr) {
@@ -52,11 +56,11 @@ function savePlayerUrl(addr) {
     } else {
       if (!res) {
         addrModel.update({ _id: res._id }, addr, (err, res) => {
-            updateTag(addr.video_id,false)
+          updateTag(addr.video_id, false);
         });
       } else {
         addrModel.create(addr, (err, res) => {
-            updateTag(addr.video_id,false);
+          updateTag(addr.video_id, false);
         });
       }
     }
