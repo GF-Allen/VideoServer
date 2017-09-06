@@ -135,6 +135,11 @@ function getVideoDes(id) {
 
       yongjiuzyController.saveVideoInfo(video_data);
       yongjiuzyController.savePlayerUrl(addr);
+
+      console.log({
+        video_data: video_data,
+        video_player: addr
+      });
     }
   );
 }
@@ -153,4 +158,3 @@ function startCrawler() {
 startCrawler();
 
 exports.startCrawler = startCrawler;
-
