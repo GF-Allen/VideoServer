@@ -139,10 +139,10 @@ function getVideoDes(id) {
   );
 }
 
-// getPageContent(1, function(maxPage) {
-//   for (let i = 2; i <= maxPage; i++) {
-//     // getPageContent(i);
-//   }
-// });
-getPageContent(1);
-getVideoDes(1661);
+getPageContent(1, function(maxPage) {
+  for (let i = 2; i <= maxPage; i++) {
+    getPageContent(i);
+  }
+});
+// getPageContent(1);
+// getVideoDes(1661);
