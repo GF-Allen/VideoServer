@@ -13,7 +13,7 @@ function saveVideoInfo(info, callback) {
           } else {
             console.log(info.video_id + "插入成功");
           }
-          if (typeof callback == "funcotion") {
+          if (typeof callback == "function") {
             callback(true); //返回是否需要更新
           }
         });
@@ -25,7 +25,7 @@ function saveVideoInfo(info, callback) {
         infoModel.update({ _id: res._id }, info, (err, res) => {
           console.log(info.video_id, "更新成功");
         });
-        if (typeof callback == "funcotion") {
+        if (typeof callback == "function") {
           callback(info.update_tag); //返回是否需要更新
         }
       }
