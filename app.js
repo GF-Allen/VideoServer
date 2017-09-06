@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var video = require('./routes/video');
 
+var schedlue = require('./schedule/crawlerSchedule');
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/video', video);
+
+schedlue.scheduleCrawler();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -67,8 +67,8 @@ function getVideoDes(id) {
     base_url + "/?m=vod-detail-id-" + id + ".html",
     (error, response, body) => {
       if (error) {
-        console.error("getVideoDes===>"+error);
-        yongjiuzyController.updateTag(id,true);
+        console.error("getVideoDes===>" + error);
+        yongjiuzyController.updateTag(id, true); //方便下次做更新
         return;
       }
       let $ = cheerio.load(body);
@@ -139,10 +139,18 @@ function getVideoDes(id) {
   );
 }
 
-getPageContent(1, function(maxPage) {
-  for (let i = 2; i <= maxPage; i++) {
-    getPageContent(i);
-  }
-});
+function startCrawler() {
+  getPageContent(1, function(maxPage) {
+    for (let i = 2; i <= maxPage; i++) {
+      getPageContent(i);
+    }
+  });
+}
+
 // getPageContent(1);
 // getVideoDes(1661);
+
+startCrawler();
+
+exports.startCrawler = startCrawler;
+
