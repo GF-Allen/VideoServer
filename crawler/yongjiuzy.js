@@ -68,7 +68,7 @@ function getVideoDes(id) {
     (error, response, body) => {
       if (error) {
         console.error("getVideoDes===>"+error);
-        yongjiuzyController.updateTag(id,false);
+        yongjiuzyController.updateTag(id,true);
         return;
       }
       let $ = cheerio.load(body);
