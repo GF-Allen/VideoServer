@@ -121,6 +121,7 @@ function getVideoDes(id) {
         .text()
         .trim();
 
+      video_data.video_id = id;
       video_data.title = title;
       video_data.alias = alias;
       video_data.actor = actor;
