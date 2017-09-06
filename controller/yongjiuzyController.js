@@ -34,7 +34,7 @@ function saveVideoInfo(info, callback) {
 }
 
 function updateTag(id, tag) {
-  infoModel.findOne({ video_id: info.video_id }, (err, res) => {
+  infoModel.findOne({ video_id: id }, (err, res) => {
     if (err) {
       console.error(err);
     } else {
