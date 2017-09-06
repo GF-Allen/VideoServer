@@ -70,3 +70,4 @@ function savePlayerUrl(addr) {
 
 exports.saveVideoInfo = saveVideoInfo;
 exports.savePlayerUrl = savePlayerUrl;
+exports.updateTag = updateTag;

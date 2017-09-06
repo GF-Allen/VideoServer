@@ -67,7 +67,8 @@ function getVideoDes(id) {
     base_url + "/?m=vod-detail-id-" + id + ".html",
     (error, response, body) => {
       if (error) {
-        console.error(error);
+        console.error("getVideoDes===>"+error);
+        yongjiuzyController.updateTag(id,false);
         return;
       }
       let $ = cheerio.load(body);
