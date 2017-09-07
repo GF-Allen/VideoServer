@@ -8,6 +8,7 @@ var Schema = new dbHelper.Schema({
     video_id: String, //id
     title: String, //名称
     alias: String, //别名
+    pic: String, //图片
     tag: String, //标记
     type: String, //剧情类型
     synopsis: String, //简介
