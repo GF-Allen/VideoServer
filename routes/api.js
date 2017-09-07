@@ -6,15 +6,6 @@ router.get("/types", videoController.getTypes);
 router.get("/types/:id", videoController.getTypeById);
 router.get("/videos", videoController.getVideos);
 router.get("/videos/:id", videoController.getVideoById);
-
-//模板
-router.get("", (req, res, next) => {
-  let typeId = req.params.id;
-  res.send({
-    code: 10000,
-    msg: "success",
-    result: constant.TYPE_MENU[typeId]
-  });
-});
+router.get("/videos/:id/urls", videoController.getAddrByVideoId);
 
 module.exports = router;
