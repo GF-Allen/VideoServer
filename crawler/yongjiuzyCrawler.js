@@ -1,7 +1,7 @@
 const S = require("string");
 const http = require("request");
 const cheerio = require("cheerio");
-const yongjiuzyController = require("./../controller/yongjiuzyController");
+const yongjiuzyController = require("./../controller/crawler/yongjiuzyController");
 /**
  * http://www.yongjiuzy.com/?m=vod-index-pg-1.html
  * 
@@ -157,6 +157,6 @@ function startCrawler() {
 // getPageContent(1);
 // getVideoDes(1661);
 
-startCrawler();
+// startCrawler();
 
 exports.startCrawler = startCrawler;

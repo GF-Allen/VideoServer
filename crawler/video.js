@@ -1,6 +1,6 @@
 const phantom = require("phantom");
 const S = require("string");
-const movieController = require("../controller/movieController");
+const movieController = require("../controller/crawler/movieController");
 const video_home = require("../model/video_home");
 
 /**

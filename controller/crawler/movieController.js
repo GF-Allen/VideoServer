@@ -1,5 +1,5 @@
-const video_home = require("../model/video_home");
-const video_line = require("../model/video_line");
+const video_home = require("../../model/video_home");
+const video_line = require("../../model/video_line");
 async function saveVideoHome(videoHome) {
   video_home.findOne(
     {
@@ -98,7 +98,8 @@ function updateLinePlayer(videoId, linesId, url) {
       $set: {
         "lines.$.video_player": url
       }
-    },(err,res)=>{
+    },
+    (err, res) => {
       console.log(err);
     }
   );

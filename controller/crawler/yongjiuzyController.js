@@ -1,5 +1,5 @@
-const infoModel = require("../model/video_info");
-const addrModel = require("../model/video_addr");
+const infoModel = require("../../model/video_info");
+const addrModel = require("../../model/video_addr");
 
 function saveVideoInfo(info, callback) {
   infoModel.findOne({ video_id: info.video_id }, (err, res) => {

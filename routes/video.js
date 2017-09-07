@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const video = require("../crawler/video");
-const videoController = require("../controller/movieController");
+const videoController = require("../controller/crawler/movieController");
 
 /* 视频地址 */
 router.get("/home/:type/:page", async function(req, res) {
