@@ -29,25 +29,29 @@ app.use('/', index);
 // app.use('/video', video);
 app.use('/api', api);
 
-//开启定时任务
-// schedlue.scheduleCrawler();
+console.log('服务已开启...');
+
+//生产环境开启定时任务
+if (process.env.NODE_ENV == "production") {
+    schedlue.scheduleCrawler();
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
