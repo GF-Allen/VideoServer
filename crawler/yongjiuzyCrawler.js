@@ -82,9 +82,10 @@ function getVideoDes(id) {
                     let des = $(el)
                         .val()
                         .split("$");
+                    let url = "http" + des[1].split("http")[1];
                     player_urls.push({
                         player_title: des[0],
-                        player_url: des[1]
+                        player_url: url
                     });
                 }
             });
@@ -138,10 +139,12 @@ function getVideoDes(id) {
             yongjiuzyController.saveVideoInfo(video_data);
             yongjiuzyController.savePlayerUrl(addr);
 
-            console.log({
-                video_data: video_data,
-                video_player: addr
-            });
+            console.log(addr);
+
+            // console.log({
+            //     video_data: video_data,
+            //     video_player: addr
+            // });
         }
     );
 }
@@ -155,7 +158,7 @@ function startCrawler() {
 }
 
 // getPageContent(1);
-// getVideoDes(1661);
+getVideoDes(1690);
 
 // startCrawler();
 
