@@ -1,4 +1,4 @@
-const TYPE_MENU = {
+const TYPE_ALL = {
     1: "电影",
     2: "电视剧",
     3: "综艺",
@@ -20,13 +20,21 @@ const TYPE_MENU = {
     20: "喜剧片",
     21: "韩剧",
     22: "国产剧"
+  };
+
+const TYPE_MENU = {
+    1:[TYPE_ALL[8],TYPE_ALL[13],TYPE_ALL[18],TYPE_ALL[20],TYPE_ALL[15],TYPE_ALL[6],TYPE_ALL[19],TYPE_ALL[12]],//电影
+    2:[TYPE_ALL[22],TYPE_ALL[5],TYPE_ALL[7],TYPE_ALL[10],TYPE_ALL[21],TYPE_ALL[14],TYPE_ALL[11]],//电视剧
+    3:[TYPE_ALL[3]],
+    4:[TYPE_ALL[4]]
 };
 
 const RESULT_CODE = {
-    SUCCESS: 10000,
-    FAILD: 10010,
-    AUTH_FAILD: 10011
+  SUCCESS: 10000,
+  FAILD: 10010,
+  AUTH_FAILD: 10011
 };
 
 exports.TYPE_MENU = TYPE_MENU;
+exports.TYPE_ALL = TYPE_ALL;
 exports.RESULT_CODE = RESULT_CODE;

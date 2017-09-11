@@ -10,6 +10,7 @@ const yongjiuzyController = require("./../controller/crawler/yongjiuzyController
  */
 
 const base_url = "http://www.yongjiuzy.com";
+// const base_url = "http://www.35zy.com";
 
 /**
  * 获取页面内的视频主题
@@ -46,6 +47,7 @@ function getPageContent(currentPage, callback) {
                     .text()
                     .trim();
                 //保存信息
+                getVideoDes(video_data.video_id);
                 yongjiuzyController.saveVideoInfo(video_data, updateState => {
                     if (updateState) {
                         console.log(video_data.video_id + "===>update");
@@ -82,7 +84,12 @@ function getVideoDes(id) {
                     let des = $(el)
                         .val()
                         .split("$");
-                    let url = "http" + des[1].split("http")[1];
+                    let u = des[1].split("http")[1];
+                    let url = "";
+                    //处理视频暂缺的情况
+                    if(u){
+                        url = "http" + u;
+                    }
                     player_urls.push({
                         player_title: des[0],
                         player_url: url
@@ -98,6 +105,9 @@ function getVideoDes(id) {
             //获取视频相关信息
             let video_data = {};
             let pic = $(".contentMain .videoPic img").attr("src");
+            if(!S(pic).contains("http")){
+                pic = base_url + pic;
+            }
             let detail = $(".contentMain .videoDetail").text();
             let title = S(detail)
                 .between("影片名称:", "影片别名")
@@ -140,11 +150,8 @@ function getVideoDes(id) {
             yongjiuzyController.savePlayerUrl(addr);
 
             console.log(addr);
+            console.log(video_data);
 
-            // console.log({
-            //     video_data: video_data,
-            //     video_player: addr
-            // });
         }
     );
 }
@@ -158,7 +165,7 @@ function startCrawler() {
 }
 
 // getPageContent(1);
-getVideoDes(1690);
+// getVideoDes(1710);
 
 // startCrawler();
 
