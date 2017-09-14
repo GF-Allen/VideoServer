@@ -170,6 +170,6 @@ function startCrawler() {
 // getPageContent(1);
 // getVideoDes(1710);
 
-startCrawler();
+// startCrawler();
 
 exports.startCrawler = startCrawler;
