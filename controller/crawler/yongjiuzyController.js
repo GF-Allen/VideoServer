@@ -19,14 +19,19 @@ function saveVideoInfo(info, callback) {
                 });
             } else {
                 //表中的更新时间和爬取的不一致，则需要更新
+                let needUpdate = false;
                 if (res.update_time != info.update_time || res.update_tag) {
-                    info.update_tag = true;
+                    needUpdate = true;
                 }
                 infoModel.update({ _id: res._id }, info, (err, res) => {
-                    //   console.log(info.video_id, "更新成功");
+                    if (err) {
+                        console.log(info.video_id, "更新失败", err);
+                    } else {
+                        console.log(info.video_id, "更新成功");
+                    }
                 });
                 if (typeof callback == "function") {
-                    callback(info.update_tag); //返回是否需要更新
+                    callback(needUpdate); //返回是否需要更新
                 }
             }
         }

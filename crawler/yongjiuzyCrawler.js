@@ -87,7 +87,7 @@ function getVideoDes(id) {
                     let u = des[1].split("http")[1];
                     let url = "";
                     //处理视频暂缺的情况
-                    if(u){
+                    if (u) {
                         url = "http" + u;
                     }
                     player_urls.push({
@@ -105,7 +105,8 @@ function getVideoDes(id) {
             //获取视频相关信息
             let video_data = {};
             let pic = $(".contentMain .videoPic img").attr("src");
-            if(!S(pic).contains("http")){
+            console.log(id + ":" + pic); //pic可能为undefined
+            if (pic && !S(pic).contains("http")) {
                 pic = base_url + pic;
             }
             let detail = $(".contentMain .videoDetail").text();
@@ -149,11 +150,13 @@ function getVideoDes(id) {
             yongjiuzyController.saveVideoInfo(video_data);
             yongjiuzyController.savePlayerUrl(addr);
 
-            console.log(addr);
-            console.log(video_data);
+            // console.log(addr);
+            // console.log(video_data);
 
         }
     );
+
+
 }
 
 function startCrawler() {
@@ -167,6 +170,6 @@ function startCrawler() {
 // getPageContent(1);
 // getVideoDes(1710);
 
-// startCrawler();
+startCrawler();
 
 exports.startCrawler = startCrawler;
