@@ -9,8 +9,8 @@ const yongjiuzyController = require("./../controller/crawler/yongjiuzyController
  * /?m=vod-detail-id-1538.html
  */
 
-const base_url = "http://www.yongjiuzy.com";
-// const base_url = "http://www.35zy.com";
+// const base_url = "http://www.yongjiuzy.com";
+const base_url = "http://www.35zy.com";
 
 /**
  * 获取页面内的视频主题
