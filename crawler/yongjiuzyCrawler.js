@@ -65,6 +65,10 @@ function getPageContent(currentPage, callback) {
     );
 }
 
+/**
+ * 获取具体信息
+ * @param {*} id 
+ */
 function getVideoDes(id) {
     http(
         base_url + "/?m=vod-detail-id-" + id + ".html",
@@ -168,8 +172,8 @@ function startCrawler() {
 }
 
 //处理urls为空的ID
-function startUrlsIsNull(){
-    yongjiuzyController.getUrlsIsNull(res=>{
+function startUrlsIsNull() {
+    yongjiuzyController.getUrlsIsNull(res => {
         for (var i = 0; i < res.length; i++) {
             var doc = res[i];
             getVideoDes(doc.video_id);
