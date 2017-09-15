@@ -47,7 +47,7 @@ function getPageContent(currentPage, callback) {
                     .text()
                     .trim();
                 //保存信息
-                getVideoDes(video_data.video_id);
+                // getVideoDes(video_data.video_id);
                 yongjiuzyController.saveVideoInfo(video_data, updateState => {
                     if (updateState) {
                         console.log(video_data.video_id + "===>update");
