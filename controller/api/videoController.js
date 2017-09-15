@@ -42,10 +42,17 @@ class VideoController {
     });
   }
 
-  //根据类型查找电影列表
+  /** 
+   * 查找电影列表 ?type=xx&title=xx&area=xx&year=xxx
+   * 模糊查询 title  actor
+   */
   getVideos(req, res, next) {
     try {
       let typeId = req.query.type;
+      let title = req.query.title;
+      let area = req.query.area;
+      let year = req.query.year;
+      let actor = req.query.actor;
       let type = [];
       if (typeId) {
         typeId -= 1;
@@ -68,8 +75,16 @@ class VideoController {
         }
       }
       let paging = handlePaging(req);
+
+      let conditions = {
+        type: type.length != 0 ? { $in: type } : { $ne: null },
+        title: title ? { $regex: title } : { $ne: null },
+        area: area ? area : { $ne: null },
+        year: year ? year : { $ne: null },
+        actor: actor ? { $regex: actor } : { $ne: null }
+      };
       videoInfo
-        .find(type.length != 0 ? { type: { $in: type } } : null, video_filter)
+        .find(conditions, video_filter)
         .sort({ update_time: "desc" }) //按更新时间降序
         .skip(paging.start)
         .limit(paging.pageSize)
@@ -93,6 +108,7 @@ class VideoController {
     }
   }
 
+  //查询播放地址
   getAddrByVideoId(req, res, next) {
     try {
       let id = req.params.id;
@@ -102,17 +118,24 @@ class VideoController {
       let addrPromise = videoAddr.findOne({ video_id: id }, { _id: 0 }).exec();
       Promise.all([infoPromise, addrPromise])
         .then(datas => {
-          let data = datas[0]._doc; //_doc才能添加model以外的属性
-          data.player_urls = datas[1].player_urls;
-          for (var index = 0; index < data.player_urls.length; index++) {
-            var element = data.player_urls[index];
-            delete data.player_urls[index]._doc["_id"];
+          if (datas[0]) {
+            let data = datas[0]._doc; //_doc才能添加model以外的属性
+            data.player_urls = datas[1].player_urls;
+            for (var index = 0; index < data.player_urls.length; index++) {
+              var element = data.player_urls[index];
+              delete data.player_urls[index]._doc["_id"];
+            }
+            res.json({
+              code: constant.RESULT_CODE.SUCCESS,
+              msg: "success",
+              result: data
+            });
+          } else {
+            res.json({
+              code: constant.RESULT_CODE.FAILD,
+              msg: "未查询到改ID"
+            });
           }
-          res.json({
-            code: constant.RESULT_CODE.SUCCESS,
-            msg: "success",
-            result: data
-          });
         })
         .catch(err => {
           handleError(err, res);
@@ -121,6 +144,8 @@ class VideoController {
       handleError(error, res);
     }
   }
+
+  //
 }
 
 //处理分页
