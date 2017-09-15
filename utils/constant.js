@@ -3,25 +3,25 @@ const TYPE_ALL = [{
         name: "电影",
         subTypes: [
             { id: 8, name: "动作片" },
-            { id: 13, name: "爱情片" },
-            { id: 17, name: "战争片" },
-            { id: 19, name: "喜剧片" },
-            { id: 15, name: "科幻片" },
+            { id: 11, name: "爱情片" },
+            { id: 14, name: "战争片" },
+            { id: 16, name: "喜剧片" },
+            { id: 13, name: "科幻片" },
             { id: 6, name: "剧情片" },
-            { id: 18, name: "恐怖片" }
+            { id: 15, name: "恐怖片" }
         ]
     },
     {
         id: 2,
         name: "电视剧",
         subTypes: [
-            { id: 21, name: "国产剧" },
+            { id: 18, name: "国产剧" },
             { id: 5, name: "港剧" },
             { id: 7, name: "日剧" },
-            { id: 10, name: "欧美剧" },
-            { id: 20, name: "韩剧" },
-            { id: 14, name: "台剧" },
-            { id: 11, name: "泰剧" }
+            { id: 9, name: "欧美剧" },
+            { id: 17, name: "韩剧" },
+            { id: 12, name: "台剧" },
+            { id: 10, name: "泰剧" }
         ]
     },
     { id: 3, name: "综艺" },
@@ -30,19 +30,19 @@ const TYPE_ALL = [{
     { id: 6, name: "剧情片" },
     { id: 7, name: "日剧" },
     { id: 8, name: "动作片" },
-    { id: 9, name: "嫩妹写真" },
-    { id: 10, name: "欧美剧" },
-    { id: 11, name: "泰剧" },
-    { id: 12, name: "伦理片" },
-    { id: 13, name: "爱情片" },
-    { id: 14, name: "台剧" },
-    { id: 15, name: "科幻片" },
-    { id: 16, name: "美女视频秀" },
-    { id: 17, name: "战争片" },
-    { id: 18, name: "恐怖片" },
-    { id: 19, name: "喜剧片" },
-    { id: 20, name: "韩剧" },
-    { id: 21, name: "国产剧" }
+    { id: 9, name: "欧美剧" },
+    { id: 10, name: "泰剧" },
+    { id: 11, name: "爱情片" },
+    { id: 12, name: "台剧" },
+    { id: 13, name: "科幻片" },
+    { id: 14, name: "战争片" },
+    { id: 15, name: "恐怖片" },
+    { id: 16, name: "喜剧片" },
+    { id: 17, name: "韩剧" },
+    { id: 18, name: "国产剧" },
+    { id: 19, name: "嫩妹写真" },
+    { id: 20, name: "美女视频秀" },
+    { id: 21, name: "伦理片" },
 ];
 
 // const TYPE_MENU = {

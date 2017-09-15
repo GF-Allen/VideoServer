@@ -167,9 +167,21 @@ function startCrawler() {
     });
 }
 
+//处理urls为空的ID
+function startUrlsIsNull(){
+    yongjiuzyController.getUrlsIsNull(res=>{
+        for (var i = 0; i < res.length; i++) {
+            var doc = res[i];
+            getVideoDes(doc.video_id);
+        }
+    })
+}
+
 // getPageContent(1);
-// getVideoDes(1710);
+// getVideoDes(2748);
 
 // startCrawler();
+// startUrlsIsNull();
 
 exports.startCrawler = startCrawler;
+exports.startUrlsIsNull = startUrlsIsNull;

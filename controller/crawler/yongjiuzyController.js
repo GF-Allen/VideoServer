@@ -74,6 +74,13 @@ function savePlayerUrl(addr) {
     });
 }
 
+function getUrlsIsNull(callback){
+    addrModel.find({player_urls:[]},(err,res)=>{
+        callback(res);
+    })
+}
+
 exports.saveVideoInfo = saveVideoInfo;
 exports.savePlayerUrl = savePlayerUrl;
 exports.updateTag = updateTag;
+exports.getUrlsIsNull = getUrlsIsNull;
