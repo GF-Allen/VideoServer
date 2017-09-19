@@ -1,5 +1,9 @@
 const video_home = require("../../model/video_home");
 const video_line = require("../../model/video_line");
+/**
+ * 弃用
+ * @param {*} videoHome 
+ */
 async function saveVideoHome(videoHome) {
   video_home.findOne(
     {

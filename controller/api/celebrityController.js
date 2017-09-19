@@ -18,7 +18,7 @@ class CelebrityController{
         http(url,(error, response, body)=>{
             if(error){
                 res.json({
-                    code: constant.RESULT_CODE.FAILD,
+                    code: constant.RESULT_CODE.NOT_FOUND.code,
                     msg: "获取信息失败",
                 });
                 return;
@@ -42,8 +42,8 @@ class CelebrityController{
             delete celebrity.id;
 
             res.json({
-                code: constant.RESULT_CODE.SUCCESS,
-                msg: "success",
+                code: constant.RESULT_CODE.SUCCESS.code,
+                msg: constant.RESULT_CODE.SUCCESS.msg,
                 result: celebrity
             });
         })

@@ -26,8 +26,8 @@ class VideoController {
   //获取所有类型
   getTypes(req, res, next) {
     res.json({
-      code: constant.RESULT_CODE.SUCCESS,
-      msg: "success",
+      code: constant.RESULT_CODE.SUCCESS.code,
+      msg: constant.RESULT_CODE.SUCCESS.msg,
       result: constant.TYPE_ALL
     });
   }
@@ -36,8 +36,8 @@ class VideoController {
   getTypeById(req, res, next) {
     let typeId = req.params.id - 1;
     res.json({
-      code: constant.RESULT_CODE.SUCCESS,
-      msg: "success",
+      code: constant.RESULT_CODE.SUCCESS.code,
+      msg: constant.RESULT_CODE.SUCCESS.msg,
       result: constant.TYPE_ALL[typeId]
     });
   }
@@ -68,7 +68,7 @@ class VideoController {
           }
         } else {
           res.json({
-            code: constant.RESULT_CODE.FAILD,
+            code: constant.RESULT_CODE.ARG_ERROR.code,
             msg: "TypeId不正确"
           });
           return;
@@ -126,14 +126,14 @@ class VideoController {
               delete data.player_urls[index]._doc["_id"];
             }
             res.json({
-              code: constant.RESULT_CODE.SUCCESS,
-              msg: "success",
+              code: constant.RESULT_CODE.SUCCESS.code,
+              msg: constant.RESULT_CODE.SUCCESS.msg,
               result: data
             });
           } else {
             res.json({
-              code: constant.RESULT_CODE.FAILD,
-              msg: "未查询到改ID"
+              code: constant.RESULT_CODE.NOT_FOUND,
+              msg: "未查询到该ID"
             });
           }
         })
@@ -169,8 +169,8 @@ function handlePaging(req) {
 function handleError(error, res) {
   console.error(error);
   res.json({
-    code: constant.RESULT_CODE.FAILD,
-    msg: "服务器内部错误"
+    code: constant.RESULT_CODE.INTERNAL_ERROR.code,
+    msg: constant.RESULT_CODE.INTERNAL_ERROR.msg
   });
 }
 
@@ -178,13 +178,13 @@ function handleError(error, res) {
 function handleData(err, res, data) {
   if (err) {
     res.json({
-      code: constant.RESULT_CODE.FAILD,
+      code: constant.RESULT_CODE.FAILD.code,
       msg: "db faild"
     });
   } else {
     res.json({
-      code: constant.RESULT_CODE.SUCCESS,
-      msg: "success",
+      code: constant.RESULT_CODE.SUCCESS.code,
+      msg: constant.RESULT_CODE.SUCCESS.msg,
       result: data
     });
   }

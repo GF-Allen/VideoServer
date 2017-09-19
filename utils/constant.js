@@ -86,9 +86,16 @@ const TYPE_ALL = [{
 // };
 
 const RESULT_CODE = {
-    SUCCESS: 10000,
-    FAILD: 10010,
-    AUTH_FAILD: 10011
+    SUCCESS: {code:200,msg:'请求成功'},
+    CREATE_SUCCESS:{code:201,msg:'创建成功'},
+    UPDATE_SUCCESS:{code:202,msg:'修改成功'},
+    DELETE_SUCCESS:{code:204,msg:'删除成功'},
+    ARG_ERROR:{code:400,msg:'参数错误'},
+    NO_LOGIN:{code:401,msg:'未登录'},
+    FORBIDDEN:{code:403,msg:'禁止访问'},
+    NOT_FOUND:{code:404,msg:'未找到'},
+    INTERNAL_ERROR:{code:500,msg:'服务器内部错误'},
+    FAILD:{code:503,msg:'请求失败'}
 };
 
 // exports.TYPE_MENU = JSON.parse(TYPE_MENU);
