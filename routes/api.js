@@ -8,6 +8,8 @@ router.get("/types/:id", videoController.getTypeById);
 router.get("/videos", videoController.getVideos);
 router.get("/videos/:id", videoController.getVideoById);
 router.get("/videos/:id/urls", videoController.getAddrByVideoId);
+router.get("/years",videoController.getAllYears);
+router.get("/areas",videoController.getAllAreas);
 router.get("/celebrity/:name", celebrityController.getCelebrityPic);
 
 module.exports = router;

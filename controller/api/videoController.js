@@ -145,7 +145,18 @@ class VideoController {
     }
   }
 
-  //
+  //查询所有的年份
+  getAllYears(req, res, next) {
+    videoInfo.distinct("year", (err, result) => {
+      handleData(err, res, result);
+    });
+  }
+
+  getAllAreas(req, res, next) {
+    videoInfo.distinct("area", (err, result) => {
+      handleData(err, res, result);
+    });
+  }
 }
 
 //处理分页
@@ -177,6 +188,7 @@ function handleError(error, res) {
 //处理数据
 function handleData(err, res, data) {
   if (err) {
+    console.error(err);
     res.json({
       code: constant.RESULT_CODE.FAILD.code,
       msg: "db faild"
